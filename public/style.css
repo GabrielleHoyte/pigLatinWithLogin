@@ -1,7 +1,51 @@
 body{
   padding-top:80px;
   word-wrap:break-word;
+  background-color: #ff9fd6;
+  color: white;
 }
 img{
   height: 200px;
+}
+.col-sm-6{
+  text-align: center;
+}
+.well{
+  color: white;
+  background-color: rgba(255, 255, 255, 0.3);
+}
+li{
+  list-style: none;
+  font-size: 20px;
+}
+.jumbotron{
+  color: #ff9fd6;
+}
+.btn-warning{
+  background-color: #fc79c3;
+  border-color: #fc79c3;
+}
+.btn-warning:hover{
+  color: #fc79c3;
+  background-color: white;
+  border-color: white;
+}
+a:link, a:visited, a:active {
+  color: #f858b3;
+}
+a:hover {
+  color: white;
+}
+.profileBody{
+  background-image: url(img/piglet.jpeg);
+  background-repeat: no-repeat;
+}
+.submitButton{
+  color: #fc79c3;
+}
+.fa-arrow-up, .fa-ban{
+  color: #eb67b2;
+}
+input::placeholder { 
+  color: #fc79c3;
 }
