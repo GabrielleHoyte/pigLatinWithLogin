@@ -8,4 +8,10 @@ A Pig Latin generator based on the 21 Savage message board app code with login
 
 ## How It's Made:
 Tech used: HTML, CSS, JavaScript, Node
-```
+My learning was primary focused, on this particular project, on successfully integrating a function (particularly one that I did not write myself) into the code
+
+## Optimizations: 
+If I return to the project, I'd like to make it so that phrases are accepted and fully translated rather then just one word. As of now, phrases are accepted but they are treated as single strings, hence the placeholder message of "one word please"
+
+## Lessons Learned: 
+This app taught me that sometimes a simple idea is just as good/successful as a complex one
