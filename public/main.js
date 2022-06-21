@@ -1,23 +1,44 @@
-console.log('Connected')
-const trash = document.getElementsByClassName("createStaffDelete");
+let pigLatin = document.getElementsByClassName("pig");
+let trash = document.getElementsByClassName("fa-ban");
+
+Array.from(pigLatin).forEach(function (element) {
+  element.addEventListener('click', function () {
+    // const name = this.parentNode.parentNode.childNodes[1].innerText
+    const word = this.parentNode.parentNode.childNodes[3].innerText
+    console.log(word)
+    let pigLatined = renamed(word)
+    console.log(pigLatined)
+    fetch('messages', {
+      method: 'put',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        'ogWord': word,
+        'newWord': pigLatined,
+      })
+    })
+      .then(response => {
+        if (response.ok) return response.json()
+      })
+      .then(data => {
+        console.log(data)
+        window.location.reload(true)
+      })
+  });
+});
+
 
 Array.from(trash).forEach(function(element) {
       element.addEventListener('click', function(){
-        const nurseName = this.parentNode.parentNode.childNodes[1].innerText
-        const type = this.parentNode.parentNode.childNodes[3].innerText
-        const department = this.parentNode.parentNode.childNodes[5].innerText
-        const shift = this.parentNode.parentNode.childNodes[7].innerText
-        console.log(department)
-        fetch('/nurses', {
+        const name = this.parentNode.parentNode.childNodes[1].innerText
+        const msg = this.parentNode.parentNode.childNodes[3].innerText
+        fetch('messages', {
           method: 'delete',
           headers: {
             'Content-Type': 'application/json'
           },
           body: JSON.stringify({
-            'name': nurseName,
-            'type': type,
-            'dept': department,
-            'shift': shift
+            'name': name,
+            'msg': msg
           })
         }).then(function (response) {
           window.location.reload()
@@ -25,70 +46,17 @@ Array.from(trash).forEach(function(element) {
       });
 });
 
-const trashTwo = document.getElementsByClassName("scheduleDelete");
-console.log(Array.from(trashTwo).length)
-Array.from(trashTwo).forEach(function(element) {
-      element.addEventListener('click', function(){
-        const nurseName = this.parentNode.parentNode.childNodes[1].innerText
-        const type = this.parentNode.parentNode.childNodes[3].innerText
-        const department = this.parentNode.parentNode.childNodes[5].innerText
-        const shift = this.parentNode.parentNode.childNodes[7].innerText
-        console.log(department)
-        fetch('/schedule', {
-          method: 'delete',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            'name': nurseName,
-            'type': type,
-            'dept': department,
-            'shift': shift
-          })
-        }).then(function (response) {
-          window.location.reload()
-        })
-      });
-});
+function renamed(quote){
+  let vowels = ['a', 'e', 'i', 'o', 'u'];
+  let newStr = "";
 
-const editButton = document.querySelector('.editButton');
-
-editButton.addEventListener('click', function(){
-  const id = document.querySelector('.staffMemberId')
-  const nurseName = document.querySelector('.staffMemberName').innerText
-  const department =  document.querySelector('input[name=dept]:checked').value
-  const shift = document.querySelector('input[name=shift]:checked').value
-  fetch('/editStaff', {
-    method: 'put',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      // 'staffID': id,
-      'name': nurseName,
-      'dept': department,
-      'shift': shift
-    })
-  }).then(function (response) {
-    window.location.reload()
-  })
-})
-
-const trashThree = document.getElementsByClassName("editDelete");
-Array.from(trashThree).forEach(function(element) {
-      element.addEventListener('click', function(){
-        const id = this.parentNode.parentNode.getAttribute('data-id')
-        console.log('id:', id)
-        fetch('/editStaff', {
-          method: 'delete',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            'id': id
-          })
-        }).then(function (response) {
-          window.location.reload()
-        })
-      });
-});
+  if (vowels.indexOf(quote[0]) > -1) {
+      newStr = quote + "way";
+      return newStr;
+  } else {
+      let firstMatch = quote.match(/[aeiou]/g) || 0;
+      let vowel = quote.indexOf(firstMatch[0]);
+      newStr = quote.substring(vowel) + quote.substring(0, vowel) + "ay";
+      return newStr;
+  }
+}
